@@ -52,4 +52,87 @@ void insert(node **root, const char *key)
     pCurrent->count++;
 
 }
+/**
+ * This function is designed to free all the node we have assigned by the malloc function
+ */
+void freeAllTrie(node ** root)
+{
+    node *pCurrent= *root;
+    int i=0;
+    for (i;i<NUM_LETTERS;i++)
+    {
+        if(pCurrent->children[i]!=null)
+        {
+            freeAllTrie(&(pCurrent->children[i]))  //The recursion
+        }
+    }
+
+    free(pCurrent);
+}
+
+/**
+ * print all the words in the trie and the amount of times they enter the tree Fine dictionary from low to high
+ */
+void print (npde** root , const char* key,int level)
+{
+    node *pCurrent= *root;
+    int i=0;
+
+    //Stop conditions
+    if(pCurrent==null)
+    {
+        return;
+    }
+
+    if(pCurrent->isEndOfWord)
+    {
+        key[level]='\0';
+        printf("%s\t%ld",key,pCurrent->count);
+    }
+
+    //The recursion
+    for(i;i<NUM_LETTERS ; i++)
+    {
+        if(pCurrent-> children[i]!=null)
+        {
+            key[level]=pCurrent-> children[i]->letter;
+            printf(&(pCurrent->children[i]),key,level+1) //node promotion,same string,level down in the tree
+        }
+    }
+}
+
+/**
+ * print all the words in the trie and the amount of times they enter the tree Fine dictionary from high to low
+ */
+    void printReverse (npde** root , const char* key,int level)
+    {
+        node *pCurrent= *root;
+        int i=NUM_LETTERS-1;
+
+        //Stop conditions
+        if(pCurrent==null)
+        {
+            return;
+        }
+
+        //The recursion
+        for(i; i>=0 ; i--)
+        {
+            if(pCurrent-> children[i]!=null)
+            {
+                key[level]=pCurrent-> children[i]->letter;
+                printf(&(pCurrent->children[i]),key,level+1) //node promotion,same string,level down in the tree
+            }
+        }
+
+        if(pCurrent->isEndOfWord)
+        {
+            key[level]='\0';
+            printf("%s\t%ld",key,pCurrent->count);
+        }
+    }
+
+}
+
+
 

@@ -4,6 +4,7 @@
 #define HW4INC_TRIE_H
 
 #define NUM_LETTERS ((int)26)
+#define TO_ADD 20
 #define CHAR_TO_INDEX(ch) ((int)ch - (int)'a')
 
 //structs
@@ -19,5 +20,8 @@ typedef struct node {
 //functions
 node* getNode();
 void insert(node **root, const char *key);
+void freeAllTrie(node ** root);
+void print (npde** root , const char* key,int level);
+void printReverse (npde** root , const char* key,int level);
 
 #endif //HW4INC_TRIE_H
