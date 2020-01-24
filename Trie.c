@@ -16,7 +16,7 @@ node* getNode()
         pNode->isEndOfWord=FALSE;
         pNode->count=0;
         for (i;  i< NUM_LETTERS; i++) {
-            pNode >children[i]=NULL;
+            pNode ->children[i]=NULL;
         }
 
 
@@ -29,7 +29,7 @@ node* getNode()
  * @param root
  * @param key
  */
-void insert(node **root, const char *key)
+void insert(node **root,  char *key)
 {
     int level=0;
     int len=strlen(key);
@@ -61,9 +61,9 @@ void freeAllTrie(node ** root)
     int i=0;
     for (i;i<NUM_LETTERS;i++)
     {
-        if(pCurrent->children[i]!=null)
+        if(pCurrent->children[i]!=NULL)
         {
-            freeAllTrie(&(pCurrent->children[i]))  //The recursion
+            freeAllTrie(&(pCurrent->children[i]));  //The recursion
         }
     }
 
@@ -73,30 +73,30 @@ void freeAllTrie(node ** root)
 /**
  * print all the words in the trie and the amount of times they enter the tree Fine dictionary from low to high
  */
-void print (npde** root , const char* key,int level)
+void print (node** root ,  char* key,int level)
 {
     node *pCurrent= *root;
     int i=0;
 
     //Stop conditions
-    if(pCurrent==null)
+    if(pCurrent==NULL)
     {
         return;
     }
 
     if(pCurrent->isEndOfWord)
     {
-        key[level]='\0';
+        *(key + level)='\0';
         printf("%s\t%ld",key,pCurrent->count);
     }
 
     //The recursion
     for(i;i<NUM_LETTERS ; i++)
     {
-        if(pCurrent-> children[i]!=null)
+        if(pCurrent-> children[i]!=NULL)
         {
-            key[level]=pCurrent-> children[i]->letter;
-            printf(&(pCurrent->children[i]),key,level+1) //node promotion,same string,level down in the tree
+            *(key + level)=pCurrent-> children[i]->letter;
+            print(&(pCurrent->children[i]),key,level+1); //node promotion,same string,level down in the tree
         }
     }
 }
@@ -104,13 +104,13 @@ void print (npde** root , const char* key,int level)
 /**
  * print all the words in the trie and the amount of times they enter the tree Fine dictionary from high to low
  */
-    void printReverse (npde** root , const char* key,int level)
+    void printReverse (node** root ,  char* key,int level)
     {
         node *pCurrent= *root;
         int i=NUM_LETTERS-1;
 
         //Stop conditions
-        if(pCurrent==null)
+        if(pCurrent==NULL)
         {
             return;
         }
@@ -118,16 +118,16 @@ void print (npde** root , const char* key,int level)
         //The recursion
         for(i; i>=0 ; i--)
         {
-            if(pCurrent-> children[i]!=null)
+            if(pCurrent-> children[i]!=NULL)
             {
-                key[level]=pCurrent-> children[i]->letter;
-                printf(&(pCurrent->children[i]),key,level+1) //node promotion,same string,level down in the tree
+                *(key + level)=pCurrent-> children[i]->letter;
+                printReverse(&(pCurrent->children[i]),key,level+1); //node promotion,same string,level down in the tree
             }
         }
 
         if(pCurrent->isEndOfWord)
         {
-            key[level]='\0';
+            *(key + level)='\0';
             printf("%s\t%ld",key,pCurrent->count);
         }
     }

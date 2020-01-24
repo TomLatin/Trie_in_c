@@ -4,13 +4,12 @@
 #include "Trie.h"
 
 int main(int argc,char* argv[]) {
-
     boolean revers=FALSE ,flag=FALSE;
     char * key=(char*)malloc (sizeof(char)*300);
     int sizeKey=300 ,count=0;
     char currentCh=getchar();
     node * root=getNode();
-    char * temp=null;
+    char * temp=NULL;
 
     //insertion to trie
     while (currentCh!=EOF || (currentCh==EOF && flag!=TRUE)) {
@@ -20,15 +19,15 @@ int main(int argc,char* argv[]) {
 
         if (currentCh >= 'a' && currentCh <= 'z' && currentCh != ' ' && currentCh != '\n' && currentCh != '\0' && currentCh != '\t') {
             if (count == sizeKey) {
-                temp = (char *) realloc(key, sizeof(char) * (sizeKey + TO_ADD));
+                temp = (char*) realloc(key, sizeof(char)*(sizeKey + TO_ADD));
                 sizeKey = sizeKey + TO_ADD;
-                if (temp == null && key != null) //the realloc didnt succeed
+                if (temp == NULL && key != NULL) //the realloc didnt succeed
                 {
                     free(key);
                     return -1;
                 }
             }
-            key = (*char)calloc(sizeKey, sizeof(char));
+            key = (char*)calloc(sizeKey, sizeof(char));
             strcpy(key, temp);
             free(temp);
         }
@@ -36,7 +35,7 @@ int main(int argc,char* argv[]) {
         key[count] = currentCh;
         count++;
 
-        else if (currentCh != EOF && (currentCh == ' ' && currentCh == '\n' && currentCh == '\0' && currentCh == '\t')) {
+        if (currentCh != EOF && (currentCh == ' ' || currentCh == '\n' || currentCh == '\0' || currentCh == '\t')) {
             key[count] = '\0';
             if (key[0] != ' ' && count >= 1) {
                 insert(&root, key);
@@ -44,7 +43,7 @@ int main(int argc,char* argv[]) {
             count = 0;
         }
 
-        else if (currentCh == EOF) {
+        if (currentCh == EOF) {
             flag = TRUE;
         }
         currentCh = getchar();

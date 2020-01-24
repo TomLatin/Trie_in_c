@@ -19,9 +19,9 @@ typedef struct node {
 
 //functions
 node* getNode();
-void insert(node **root, const char *key);
-void freeAllTrie(node ** root);
-void print (npde** root , const char* key,int level);
-void printReverse (npde** root , const char* key,int level);
+void insert(node**,char*);
+void print(node**,char*,int);
+void printReverse(node**,char*,int);
+void freeAllTrie(node**);
 
 #endif //HW4INC_TRIE_H
