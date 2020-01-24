@@ -1,7 +1,8 @@
+#include "Trie.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "Trie.h"
+
 
 int main(int argc,char* argv[]) {
     boolean revers=FALSE ,flag=FALSE;
@@ -14,7 +15,7 @@ int main(int argc,char* argv[]) {
     //insertion to trie
     while (currentCh!=EOF || (currentCh==EOF && flag!=TRUE)) {
         if (currentCh >= 'A' && currentCh <= 'Z') {
-            currentCh = currentCh + ('a' - currentCh);
+            currentCh = currentCh + 32;
         }
 
         if (currentCh >= 'a' && currentCh <= 'z' && currentCh != ' ' && currentCh != '\n' && currentCh != '\0' && currentCh != '\t') {
@@ -26,16 +27,17 @@ int main(int argc,char* argv[]) {
                     free(key);
                     return -1;
                 }
+                key = (char*)calloc(sizeKey, sizeof(char));
+                strcpy(key, temp);
+                free(temp);
             }
-            key = (char*)calloc(sizeKey, sizeof(char));
-            strcpy(key, temp);
-            free(temp);
+            key[count] = currentCh;
+            count++;
         }
 
-        key[count] = currentCh;
-        count++;
 
-        if (currentCh != EOF && (currentCh == ' ' || currentCh == '\n' || currentCh == '\0' || currentCh == '\t')) {
+
+        if (currentCh == EOF || currentCh == ' ' || currentCh == '\n' || currentCh == '\0' || currentCh == '\t') {
             key[count] = '\0';
             if (key[0] != ' ' && count >= 1) {
                 insert(&root, key);

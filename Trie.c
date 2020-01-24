@@ -6,20 +6,19 @@
 
 // Creates a new node so that all of its fields are initialized except the signal field - letter, that we initialize
 // with the word insert.
-node* getNode()
-{
+node* getNode() {
     node *pNode = NULL;
-    pNode=(node*)malloc(sizeof(node));
-    if(pNode)  //pNode!=NULL i.e the malloc Succeeded
+    pNode = (node *) malloc(sizeof(node));
+    if (pNode)  //pNode!=NULL i.e the malloc Succeeded
     {
-        int i=0;
-        pNode->isEndOfWord=FALSE;
-        pNode->count=0;
-        for (i;  i< NUM_LETTERS; i++) {
-            pNode ->children[i]=NULL;
+        int i = 0;
+        pNode->isEndOfWord = FALSE;
+        pNode->count = 0;
+        for (i = 0; i < NUM_LETTERS; i++) {
+            pNode->children[i] = NULL;
         }
 
-
+    }
     return pNode;
 }
 
@@ -36,7 +35,7 @@ void insert(node **root,  char *key)
     int index;
     node *pCurrent= *root;
 
-    for(level ; level<len ; level++)
+    for(level=0 ; level<len ; level++)
     {
         index=CHAR_TO_INDEX(key[level]);
         if(!(pCurrent->children[index])) //Checks the location in array children - if a node already exists.If no initialize the location with node
@@ -58,8 +57,8 @@ void insert(node **root,  char *key)
 void freeAllTrie(node ** root)
 {
     node *pCurrent= *root;
-    int i=0;
-    for (i;i<NUM_LETTERS;i++)
+    int i;
+    for(i=0;i<NUM_LETTERS;i++)
     {
         if(pCurrent->children[i]!=NULL)
         {
@@ -73,7 +72,7 @@ void freeAllTrie(node ** root)
 /**
  * print all the words in the trie and the amount of times they enter the tree Fine dictionary from low to high
  */
-void print (node** root ,  char* key,int level)
+void print(node** root ,  char* key,int level)
 {
     node *pCurrent= *root;
     int i=0;
@@ -87,11 +86,11 @@ void print (node** root ,  char* key,int level)
     if(pCurrent->isEndOfWord)
     {
         *(key + level)='\0';
-        printf("%s\t%ld",key,pCurrent->count);
+        printf("%s\t%ld \n",key,pCurrent->count);
     }
 
     //The recursion
-    for(i;i<NUM_LETTERS ; i++)
+    for(i=0;i<NUM_LETTERS ; i++)
     {
         if(pCurrent-> children[i]!=NULL)
         {
@@ -104,7 +103,7 @@ void print (node** root ,  char* key,int level)
 /**
  * print all the words in the trie and the amount of times they enter the tree Fine dictionary from high to low
  */
-    void printReverse (node** root ,  char* key,int level)
+    void printReverse(node** root ,  char* key,int level)
     {
         node *pCurrent= *root;
         int i=NUM_LETTERS-1;
@@ -116,7 +115,7 @@ void print (node** root ,  char* key,int level)
         }
 
         //The recursion
-        for(i; i>=0 ; i--)
+        for(i=NUM_LETTERS-1; i>=0 ; i--)
         {
             if(pCurrent-> children[i]!=NULL)
             {
@@ -128,11 +127,11 @@ void print (node** root ,  char* key,int level)
         if(pCurrent->isEndOfWord)
         {
             *(key + level)='\0';
-            printf("%s\t%ld",key,pCurrent->count);
+            printf("%s\t%ld \n ",key,pCurrent->count);
         }
     }
 
-}
+
 
 
 
